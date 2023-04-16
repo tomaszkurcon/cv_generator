@@ -1,0 +1,25 @@
+.list_element {
+    display: flex;
+}
+.date {
+  width: 180px;
+  flex-shrink: 0;
+  font-weight: bold;
+  display: flex;
+  justify-content: right;
+}
+.date p {
+  white-space: pre-line;
+}
+.timeline {
+    width: 1px;
+    background-color: #d6d7d7;
+    margin: 0 20px;
+}
+.list_header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: -24px;
+    margin-bottom: 5px;
+  }

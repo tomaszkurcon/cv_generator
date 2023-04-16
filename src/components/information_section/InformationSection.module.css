@@ -1,0 +1,63 @@
+.cv__information {
+    height: 275px;
+    display: flex;
+    justify-content: space-between;
+    gap: 45px;
+  }
+  .cv__img {
+    width: 180px;
+    height: 275px;
+    position: relative;
+  }
+  .cv__img__photo {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 0.2px double #d6d7d7;
+    object-fit:cover;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    margin-top: 10px;
+  }
+  .cv__information__content {
+    border-bottom: 1px solid #d6d7d7;
+    flex-grow: 1;
+  }
+  .cv__information__content__name {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 28px;
+    color: rgb(48, 51, 51);
+    border-bottom: 1px solid #d6d7d7;
+  }
+  .cv__information_my_name {
+    padding-bottom: 8px;
+  }
+  
+  .cv_information_skills_contact_info {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+  }
+  .cv_information__details {
+    width: 60%;
+  }
+
+  .cv_information__bars {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    column-gap: 40px;
+    row-gap: 10px;
+  }
+  
+  .cv_information__contact__items__container {
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+ 
+
