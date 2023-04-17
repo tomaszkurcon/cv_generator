@@ -17,7 +17,11 @@ const InformationSection = () => {
   return (
     <section className={styles.cv__information}>
       <div className={styles.cv__img}>
-        <img src="https://images.pexels.com/photos/2880979/pexels-photo-2880979.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="face" className={styles.cv__img__photo} />
+        <img
+          src="https://images.pexels.com/photos/2880979/pexels-photo-2880979.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          alt="face"
+          className={styles.cv__img__photo}
+        />
       </div>
       <div className={styles.cv__information__content}>
         <div className={styles.cv__information__content__name}>
@@ -53,9 +57,7 @@ const InformationSection = () => {
                 johnhustler@ww.pl
               </Header>
               <Header p_tag icon={faGithub}>
-                <a href="https://github.com/tomaszkurcon">
-                  github.com
-                </a>
+                <a href="https://github.com/tomaszkurcon">github.com</a>
               </Header>
             </div>
           </div>
