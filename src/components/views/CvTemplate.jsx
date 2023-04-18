@@ -2,8 +2,12 @@ import styles from "./CvTemplate.module.css";
 import InformationSection from "../information_section/InformationSection";
 import TimelineSection from "../timeline_section/TimelineSection";
 import { faBriefcase, faUserGraduate } from "@fortawesome/free-solid-svg-icons";
+import { useLocation } from "react-router-dom";
 
 const CvTemplate = () => {
+  const location = useLocation();
+  const data = location.state;
+  console.log(data, "data")
   const experience_items = [
     {
       title: "Staż w IT master",

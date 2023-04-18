@@ -11,7 +11,7 @@ const TimeLineElement = ({ title, description, date, isFirst, ...props }) => {
       </div>
       <div className={styles.timeline}></div>
       <div style={padding}>
-        <div class={styles.list_header}>
+        <div className={styles.list_header}>
           <Dot styles={{width:"9px", height:"9px"}} />
           <h3>{title}</h3>
         </div>

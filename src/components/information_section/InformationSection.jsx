@@ -33,9 +33,9 @@ const InformationSection = () => {
               Umiejętności
             </Header>
             <div className={styles.cv_information__bars}>
-              {skills_array.map((skill) => {
+              {skills_array.map((skill, index) => {
                 return (
-                  <Bar fullfilment_width={skill.level} label={skill.label} />
+                  <Bar key={index} fullfilment_width={skill.level} label={skill.label} />
                 );
               })}
             </div>
