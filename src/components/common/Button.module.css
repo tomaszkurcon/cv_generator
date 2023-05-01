@@ -1,12 +1,40 @@
-.submit_button {
-    padding:10px 15px;
-    font-weight: 600;
+.button {
     border-radius: 4px;
     cursor: pointer;
     border: 0.0625rem solid transparent;
-    background-color: #228be6;
-    color: #fff;
+    color: #fff;  
 }
-.submit_button:hover {
+.submitButton {
+    background-color: #228be6;
+    padding:10px 15px;
+    font-weight: 600;
+}
+
+.submitButton:hover {
     background-color: #2281d4;
+}
+.linkButton {
+    background-color: #228be6;
+    text-decoration: none;
+    padding:10px 15px;
+    font-weight: 600;
+}
+.linkButton:hover {
+    background-color: #2281d4;
+}
+.deleteButton {
+    width:25px;
+    height:25px;
+    background-color: rgb(250, 82, 82);
+}
+.deleteButton:hover {
+    background-color:rgb(238, 53, 53);
+}
+.editButton {
+    width:25px;
+    height:25px;
+    background-color: rgb(0, 139, 32);
+}
+.editButton:hover {
+    background-color: rgb(10, 113, 34);
 }

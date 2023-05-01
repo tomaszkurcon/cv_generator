@@ -4,8 +4,12 @@ import Header from "../common/Header";
 import { faCogs, faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faAddressBook } from "@fortawesome/free-regular-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import TextEditOnClick from "../common/TextEditOnClick";
+import { useContext } from "react";
+import { CvDataContext } from "../../context/CvDataContext";
 
-const InformationSection = () => {
+const InformationSection = ({ edit }) => {
+  const {name, setName} = useContext(CvDataContext);
   const skills_array = [
     { label: "HTML5", level: "90%" },
     { label: "CSS3", level: "80%" },
@@ -25,7 +29,13 @@ const InformationSection = () => {
       </div>
       <div className={styles.cv__information__content}>
         <div className={styles.cv__information__content__name}>
-          <h1 className={styles.cv__information_my_name}>John Hustler</h1>
+          {edit ? (
+            <TextEditOnClick onSend={setName}>
+              <h1>{name}</h1>
+            </TextEditOnClick>
+          ) : (
+            <h1 className={styles.cv__information_my_name}>John Hustler</h1>
+          )}
         </div>
         <div className={styles.cv_information_skills_contact_info}>
           <div className={styles.cv_information__details}>
@@ -35,7 +45,11 @@ const InformationSection = () => {
             <div className={styles.cv_information__bars}>
               {skills_array.map((skill, index) => {
                 return (
-                  <Bar key={index} fullfilment_width={skill.level} label={skill.label} />
+                  <Bar
+                    key={index}
+                    fullfilment_width={skill.level}
+                    label={skill.label}
+                  />
                 );
               })}
             </div>
