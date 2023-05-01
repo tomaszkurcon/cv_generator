@@ -1,5 +1,5 @@
 import styles from "./TimeLineElement.module.css";
-import Dot from "./common/Dot";
+import Dot from "../common/Dot";
 const TimeLineElement = ({ title, description, date, isFirst, ...props }) => {
   const padding = isFirst ? {} : {paddingTop:"40px"};
   return (

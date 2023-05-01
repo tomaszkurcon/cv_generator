@@ -59,5 +59,15 @@
     flex-direction: column;
     gap: 18px;
   }
- 
+ .bar_container {
+  display:flex;
+  gap:15px;
+  align-items:end;
+  position:relative;
+ }
+ .edit_button_container {
+  display:flex;
+  align-items: flex-end;
+ }
+
 

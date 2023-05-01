@@ -2,11 +2,12 @@ import { useState } from "react";
 import Button from "./Button";
 import styles from "./TextEditOnClick.module.css";
 import Input from "./Input";
-const TextEditOnClick = ({ children, onSend }) => {
+
+const TextEditOnClick = ({ children, defaultValue, onSend }) => {
+  console.log(defaultValue, "default");
   const [isEditing, setIsEditing] = useState(false);
   const handleEnter = (event) => {
     onSend(event.target.value);
-
     setIsEditing(false);
   };
 
@@ -18,7 +19,15 @@ const TextEditOnClick = ({ children, onSend }) => {
           {children}
         </div>
       ) : (
-        <Input name="name" onEnter={handleEnter} />
+        <div className={styles.marginBottom}>
+          <Input
+            name="name"
+            onEnter={handleEnter}
+            value={defaultValue}
+            autofocus
+            onCancelButton={setIsEditing}
+          />
+        </div>
       )}
     </>
   );

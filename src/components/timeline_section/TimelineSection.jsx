@@ -1,6 +1,6 @@
 import styles from "./TimelineSection.module.css";
 import Header from "../common/Header";
-import TimeLineElement from "../TimeLineElement";
+import TimeLineElement from "./TimeLineElement";
 import Separator from "../common/Separator";
 const TimelineSection = ({timeline_section_items, title, icon, separator}) => {
 

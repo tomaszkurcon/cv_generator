@@ -3,6 +3,7 @@ import { createContext, useState } from "react";
 export const CvDataContext = createContext({
   experienceItems: [],
   educationItems: [],
+  skillItems: [],
 });
 
 export const CvDataContextProvider = ({ children }) => {
@@ -29,6 +30,14 @@ export const CvDataContextProvider = ({ children }) => {
             30.06.2020`,
     },
   ]);
+  const [skill_items, setSkillItems] = useState([
+    {id:0, label: "HTML5", level: "90%" },
+    { id:1,label: "CSS3", level: "80%" },
+    {id:2, label: "Javascript", level: "40%" },
+    { id:3,label: "React", level: "70%" },
+    { id:4,label: "TypeScript", level: "30%" },
+    { id:5,label: "Git", level: "20%" },
+  ]);
   const value = {
     name,
     setName,
@@ -36,6 +45,8 @@ export const CvDataContextProvider = ({ children }) => {
     experience_items,
     setEducationItems,
     setExperienceItems,
+    skill_items,
+    setSkillItems
   };
   return (
     <CvDataContext.Provider value={value}>{children}</CvDataContext.Provider>

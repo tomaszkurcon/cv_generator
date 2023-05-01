@@ -31,7 +31,7 @@ const CvTemplate = ({ edit }) => {
         </>
       )}
 
-      <main className={styles.cv}>
+      <main className={styles.cv} style={!edit ? {backgroundColor:"#fbfbf8"} : {}}>
         <div>
           <InformationSection edit={edit}/>
           <TimelineSection

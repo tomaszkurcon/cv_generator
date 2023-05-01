@@ -1,9 +1,9 @@
 import styles from "./Bar.module.css";
 import Dot from "./Dot";
 
-const Bar = ({ fullfilment_width, label, ...props }) => {
+const Bar = ({ fullfilment_width, label }) => {
   return (
-    <div>
+    <div className={styles.container}>
       <div className={styles.bar_container}>
         <Dot />
         <p>{label}</p>

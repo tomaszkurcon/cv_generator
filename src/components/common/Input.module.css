@@ -4,7 +4,7 @@
   border-radius: 4px;
   border: 1px solid #d6d7d7;
   padding: 10px 15px;
-  margin-bottom: 10px;
+ 
   flex-grow: 1;
   outline-color: rgb(106, 173, 236);
 }
@@ -16,9 +16,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width:35px;
     color:#d6d7d7;
 }
 .input_container {
     position: relative;
+}
+.cancel_button {
+  position: absolute;
+  right:8px
+
 }

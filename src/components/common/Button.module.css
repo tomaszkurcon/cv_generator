@@ -38,3 +38,13 @@
 .editButton:hover {
     background-color: rgb(10, 113, 34);
 }
+.cancelButton {
+    border:none;
+    background-color: white;
+    color:#979a9a;
+    font-size:medium;
+}
+.cancelButton:hover {
+    color: #7b7d7d;
+}
+
