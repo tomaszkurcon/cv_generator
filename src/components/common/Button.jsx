@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styles from "./Button.module.css";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { MdCancel } from "react-icons/md";
+import {GrAdd} from "react-icons/gr";
 const Button = ({ type, link, children, onClick, customStyles }) => {
   const customStyle = customStyles ? customStyles : {};
   const buttonSwitch = (type) => {
@@ -53,6 +54,16 @@ const Button = ({ type, link, children, onClick, customStyles }) => {
             {<MdCancel />}
           </button>
         );
+      case "add":
+        return (
+          <button
+            className={`${styles.button} ${styles.addButton}`}
+            onClick={onClick}
+            style={customStyles}
+          >
+            {<GrAdd />}
+          </button>
+        )
     }
   };
   return <>{buttonSwitch(type)}</>;

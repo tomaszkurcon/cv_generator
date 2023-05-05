@@ -3,6 +3,10 @@
     cursor: pointer;
     border: 0.0625rem solid transparent;
     color: #fff;  
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding:5px;
 }
 .submitButton {
     background-color: #228be6;
@@ -46,5 +50,11 @@
 }
 .cancelButton:hover {
     color: #7b7d7d;
+}
+.addButton {
+    background-color: #3fe788;
+}
+.addButton:hover {
+    background-color: #2ea863;
 }
 

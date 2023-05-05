@@ -10,9 +10,8 @@ import { useContext } from "react";
 import { CvDataContext } from "../../context/CvDataContext";
 
 const CvTemplate = ({ edit }) => {
-  const location = useLocation();
-  const data = location.state;
-  const {education_items, experience_items} = useContext(CvDataContext);
+
+  const {education_items, experience_items, deleteExperienceItem, deleteEducationItem, editAddExperienceItem, editAddEducationItem} = useContext(CvDataContext);
 
   return (
     <MainTemplate>
@@ -40,12 +39,16 @@ const CvTemplate = ({ edit }) => {
             icon={faBriefcase}
             separator
             edit={edit}
+            onDeleteItem={deleteExperienceItem}
+            onEditAddItem={editAddExperienceItem}
           />
           <TimelineSection
             timeline_section_items={education_items}
             title="Edukacja"
             icon={faUserGraduate}
             edit={edit}
+            onDeleteItem={deleteEducationItem}
+            onEditAddItem={editAddEducationItem}
           />
         </div>
       </main>

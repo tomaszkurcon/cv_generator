@@ -1,4 +1,37 @@
 import { createContext, useState } from "react";
+import {
+  educationItems,
+  experienceItems,
+  skillItems,
+} from "../mocked_data/data";
+//TO DO
+// const timelineElementReducer = (state, action) => {
+//   if (action.type === "DELETE_EXPERIENCE_ITEM") {
+//     const updatedExperienceItems = state.experience_items.filter(
+//       (item) => item.id !== index
+//     );
+
+//     return {
+//       experienceItems: updatedExperienceItems,
+//       educationItems: state.education_items,
+//     };
+//   }
+//   if (action.type === "DELETE_EDUCATION_ITEM") {
+//     const updatedEducationItems = state.education_items.filter(
+//       (item) => item.id !== index
+//     );
+
+//     return {
+//       experienceItems: state.experience_items,
+//       educationItems: updatedEducationItems,
+//     };
+//   }
+
+//   return {
+//     experienceItems: state.experienceItems,
+//     educationItems: state.education_items,
+//   };
+// };
 
 export const CvDataContext = createContext({
   experienceItems: [],
@@ -7,37 +40,98 @@ export const CvDataContext = createContext({
 });
 
 export const CvDataContextProvider = ({ children }) => {
+  //TO DO:
+  //ADD REDUCER INSTEAD OF COPYING CODE FOR EXPERIENCE AND EDUCATION TIMELINE ITEMS
+  // const [timelineElementState, dispatchTimelineElement] = useReducer(
+  //   timelineElementReducer,
+  //   { experience_items: experienceItems, education_items: educationItems }
+  // );
   const [name, setName] = useState("John Hustler");
-  const [experience_items, setExperienceItems] = useState([
-    {
-      title: "Staż w IT master",
-      description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, minima eligendi. Saepe iusto voluptatum ipsam excepturi adipisci asperiores nobis praesentium hic laboriosam pariatur iure dignissimos tempore ipsa, reiciendis blanditiis? Praesentium!`,
-      date: `01.03.2025-
-          30.09.2028`,
-    },
-  ]);
-  const [education_items, setEducationItems] = useState([
-    {
-      title: "Uniwersytet Harvarda",
-      description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, minima eligendi. Saepe iusto voluptatum ipsam excepturi adipisci`,
-      date: `01.03.2020-
-          30.09.2025`,
-    },
-    {
-      title: "DLD College London",
-      description: `Lorem ipsum dolor sit amet consectetur adipisicing elit.`,
-      date: `01.09.2016-
-            30.06.2020`,
-    },
-  ]);
-  const [skill_items, setSkillItems] = useState([
-    {id:0, label: "HTML5", level: "90%" },
-    { id:1,label: "CSS3", level: "80%" },
-    {id:2, label: "Javascript", level: "40%" },
-    { id:3,label: "React", level: "70%" },
-    { id:4,label: "TypeScript", level: "30%" },
-    { id:5,label: "Git", level: "20%" },
-  ]);
+  const [phoneNumber, setPhoneNumber] = useState("123454321");
+  const [email, setEmail] = useState("johnhustler@ww.pl");
+  const [github, setGithub] = useState("https://github.com/");
+  const [experience_items, setExperienceItems] = useState(experienceItems);
+  const [education_items, setEducationItems] = useState(educationItems);
+  const [skill_items, setSkillItems] = useState(skillItems);
+
+  const removeSkillHandler = (index) => {
+    const updatedSkillList = skill_items.filter((skill) => skill.id !== index);
+    setSkillItems(updatedSkillList);
+  };
+
+  const addSkillhandler = (event) => {
+    const data = new FormData(event.target);
+    event.preventDefault();
+    const skill = {
+      id: skill_items.length + 1,
+      label: data.get("skill_name"),
+      level: `${data.get("skill_level")}%`,
+    };
+
+    const updatedSkillList = [...skill_items, skill];
+    setSkillItems(updatedSkillList);
+  };
+
+  const deleteExperienceItem = (index) => {
+    const updatedExperienceItems = experience_items.filter(
+      (item) => item.id !== index
+    );
+    setExperienceItems(updatedExperienceItems);
+  };
+  const deleteEducationItem = (index) => {
+    const updatedEducationItems = education_items.filter(
+      (item) => item.id !== index
+    );
+    setEducationItems(() => updatedEducationItems);
+  };
+  const editAddExperienceItem = (event, id) => {
+    const data = new FormData(event.target);
+    event.preventDefault();
+    if (id != null) {
+      const index = experience_items.findIndex((item) => item.id === id);
+      const updatedItem = {
+        id: id,
+        title: data.get("title"),
+        description: data.get("description"),
+        date: data.get("date"),
+      };
+      const updatedItems = [...experience_items];
+      updatedItems[index] = updatedItem;
+      setExperienceItems(updatedItems);
+    } else {
+      const newItem = {
+        id: experience_items.length,
+        title: data.get("title"),
+        description: data.get("description"),
+        date: data.get("date"),
+      };
+      setExperienceItems(() => [...experience_items, newItem]);
+    }
+  };
+  const editAddEducationItem = (event, id) => {
+    const data = new FormData(event.target);
+    event.preventDefault();
+    if (id != null) {
+      const index = education_items.findIndex((item) => item.id === id);
+      const updatedItem = {
+        id: id,
+        title: data.get("title"),
+        description: data.get("description"),
+        date: data.get("date"),
+      };
+      const updatedItems = [...education_items];
+      updatedItems[index] = updatedItem;
+      setEducationItems(updatedItems);
+    } else {
+      const newItem = {
+        id: education_items.length,
+        title: data.get("title"),
+        description: data.get("description"),
+        date: data.get("date"),
+      };
+      setEducationItems(() => [...education_items, newItem]);
+    }
+  };
   const value = {
     name,
     setName,
@@ -45,8 +139,19 @@ export const CvDataContextProvider = ({ children }) => {
     experience_items,
     setEducationItems,
     setExperienceItems,
+    deleteExperienceItem,
+    deleteEducationItem,
+    editAddExperienceItem,
+    editAddEducationItem,
     skill_items,
-    setSkillItems
+    removeSkillHandler,
+    addSkillhandler,
+    phoneNumber,
+    setPhoneNumber,
+    email,
+    setEmail,
+    github,
+    setGithub,
   };
   return (
     <CvDataContext.Provider value={value}>{children}</CvDataContext.Provider>

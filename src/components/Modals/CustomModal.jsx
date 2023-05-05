@@ -5,24 +5,42 @@ import Button from "../common/Button";
 const Backdrop = (props) => {
   return <div className={styles.backdrop} onClick={props.onClick} />;
 };
-const ModalContent = ({ onConfirm, children }) => {
+const ModalContent = ({ children, withForm, onSubmit, onCancel }) => {
+  const onSubmitHandler = (event) => {
+    onSubmit(event);
+    onCancel();
+ 
+  }
   return (
-    <div className={styles.modal_container}>
-      <div>{children}</div>
-      <Button type="submit" onClick={onConfirm} />
-    </div>
+    <>
+      {withForm ? (
+        <div className={styles.modal_container}>
+          <form onSubmit={onSubmitHandler} className={styles.modal_form}>
+            <div className={styles.form_inputs}>{children}</div>
+            <Button type="submit" />
+          </form>
+        </div>
+      ) : (
+        <div className={styles.modal_container}>{children}</div>
+      )}
+    </>
   );
 };
 
-const CustomModal = ({ onConfirm, children }) => {
+const CustomModal = ({ onCancel, onSubmit, withForm, children }) => {
   return (
     <>
       {createPortal(
-        <Backdrop onClick={onConfirm} />,
+        <Backdrop onClick={onCancel} />,
         document.getElementById("backdrop-root")
       )}
       {createPortal(
-        <ModalContent onConfirm={onConfirm} children={children} />,
+        <ModalContent
+          children={children}
+          withForm={withForm}
+          onSubmit={onSubmit}
+          onCancel={onCancel}
+        />,
         document.getElementById("modal-root")
       )}
     </>

@@ -27,7 +27,7 @@ const Input = ({
         placeholder={label}
         style={padding}
         onKeyDown={(event) => {
-          if (event.key == "Enter") {
+          if (event.key == "Enter" && onEnter) {
             onEnter(event);
           }
         }}

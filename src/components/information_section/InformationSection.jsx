@@ -13,13 +13,24 @@ import CustomModal from "../Modals/CustomModal";
 
 const InformationSection = ({ edit }) => {
   const [isAddingSkill, setIsAddingSkill] = useState(false);
-  const { name, setName, skill_items, setSkillItems } =
-    useContext(CvDataContext);
-  const removeSkillHandler = (index) => {
-    const updatedSkillList = skill_items.filter((skill) => skill.id != index);
-    setSkillItems(updatedSkillList);
-  };
+  const [skillLevel, setSkillLevel] = useState(50);
+  const {
+    name,
+    setName,
+    phoneNumber,
+    setPhoneNumber,
+    email,
+    setEmail,
+    skill_items,
+    removeSkillHandler,
+    github,
+    setGithub,
+    addSkillhandler,
+  } = useContext(CvDataContext);
 
+  const onCancel = () => {
+    setIsAddingSkill(false);
+  };
   return (
     <section className={styles.cv__information}>
       <div className={styles.cv__img}>
@@ -36,7 +47,7 @@ const InformationSection = ({ edit }) => {
               <h1>{name}</h1>
             </TextEditOnClick>
           ) : (
-            <h1 className={styles.cv__information_my_name}>John Hustler</h1>
+            <h1 className={styles.cv__information_my_name}>{name}</h1>
           )}
         </div>
 
@@ -53,18 +64,38 @@ const InformationSection = ({ edit }) => {
                     {edit && (
                       <Button
                         type="delete"
-                        onClick={() => removeSkillHandler(skill.id)}
+                        onClick={() => {
+                          removeSkillHandler(skill.id);
+                          setSkillLevel(50);
+                        }}
                       />
                     )}
                   </div>
                 );
               })}
-              {skill_items.length < 6 && (
+              {edit && skill_items.length < 6 && (
                 <div className={styles.edit_button_container}>
                   <Button type="edit" onClick={() => setIsAddingSkill(true)} />
                 </div>
               )}
-              {isAddingSkill && <CustomModal>test</CustomModal>}
+              {isAddingSkill && (
+                <CustomModal
+                  onCancel={onCancel}
+                  withForm
+                  onSubmit={addSkillhandler}
+                >
+                  <Input type="text" name="skill_name" label="Your skill" />
+
+                  <input
+                    type="range"
+                    name="skill_level"
+                    onChange={(event) => {
+                      setSkillLevel(event.currentTarget.value);
+                    }}
+                  />
+                  <p>{`${skillLevel}%`}</p>
+                </CustomModal>
+              )}
             </div>
           </div>
           <div className="cv__information__contact">
@@ -77,15 +108,42 @@ const InformationSection = ({ edit }) => {
             </Header>
 
             <div className={styles.cv_information__contact__items__container}>
-              <Header p_tag icon={faPhone}>
-                123456789
-              </Header>
-              <Header p_tag icon={faEnvelope}>
-                johnhustler@ww.pl
-              </Header>
-              <Header p_tag icon={faGithub}>
-                <a href="https://github.com/tomaszkurcon">github.com</a>
-              </Header>
+              {edit ? (
+                <>
+                  <TextEditOnClick
+                    onSend={setPhoneNumber}
+                    defaultValue={phoneNumber}
+                  >
+                    <Header p_tag icon={faPhone}>
+                      {phoneNumber}
+                    </Header>
+                  </TextEditOnClick>
+                  <TextEditOnClick onSend={setEmail} defaultValue={email}>
+                    <Header p_tag icon={faEnvelope}>
+                      {email}
+                    </Header>
+                  </TextEditOnClick>
+                  <TextEditOnClick onSend={setGithub} defaultValue={github}>
+                    <Header p_tag icon={faGithub}>
+                      <a href={github}>{github}</a>
+                    </Header>
+                  </TextEditOnClick>
+                </>
+              ) : (
+                <>
+                  <Header p_tag icon={faPhone}>
+                    {phoneNumber}
+                  </Header>
+
+                  <Header p_tag icon={faEnvelope}>
+                    {email}
+                  </Header>
+
+                  <Header p_tag icon={faGithub}>
+                    <a href="https://github.com/tomaszkurcon">github.com</a>
+                  </Header>
+                </>
+              )}
             </div>
           </div>
         </div>

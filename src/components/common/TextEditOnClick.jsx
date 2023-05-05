@@ -4,7 +4,7 @@ import styles from "./TextEditOnClick.module.css";
 import Input from "./Input";
 
 const TextEditOnClick = ({ children, defaultValue, onSend }) => {
-  console.log(defaultValue, "default");
+ 
   const [isEditing, setIsEditing] = useState(false);
   const handleEnter = (event) => {
     onSend(event.target.value);
