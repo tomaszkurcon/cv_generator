@@ -115,8 +115,10 @@ export const personalDataReducer = (state, action) => {
       };
     }
     case "EDIT_GITHUB": {
+      const data = new FormData(action.event.target);
       const updatedPersonalData = { ...state.personal_data };
-      updatedPersonalData.github = action.newGithub;
+      updatedPersonalData.githubLink = data.get("link")
+      updatedPersonalData.githubLinkName = data.get("name")
       return {
         ...state,
         personal_data: updatedPersonalData,

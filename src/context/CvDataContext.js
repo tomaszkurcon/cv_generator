@@ -1,4 +1,4 @@
-import { createContext,  useReducer } from "react";
+import { createContext,  useReducer, useState } from "react";
 import {
   educationItems,
   experienceItems,
@@ -14,10 +14,13 @@ export const CvDataContext = createContext({
   timelineElementState: {},
   personalDataState: {},
   dispatchTimelineElement: () => {},
-  dispatchPersonalData: () => {}
+  dispatchPersonalData: () => {},
+  clause:"",
+  setClause: () => {}
 });
 
 export const CvDataContextProvider = ({ children }) => {
+  const [clause, setClause] = useState("");
   const [timelineElementState, dispatchTimelineElement] = useReducer(
     timelineElementReducer,
     { experience_items: experienceItems, education_items: educationItems }
@@ -35,7 +38,9 @@ export const CvDataContextProvider = ({ children }) => {
     timelineElementState,
     dispatchTimelineElement,
     personalDataState,
-    dispatchPersonalData
+    dispatchPersonalData,
+    clause,
+    setClause
   };
   return (
     <CvDataContext.Provider value={value}>{children}</CvDataContext.Provider>

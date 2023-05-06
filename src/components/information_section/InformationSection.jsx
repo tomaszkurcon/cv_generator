@@ -15,30 +15,36 @@ import ImageDropzoneWithPreview from "./ImageDropzoneWithPreview";
 
 const InformationSection = ({ edit, preview }) => {
   const [isAddingSkill, setIsAddingSkill] = useState(false);
+  const [isAddingLink, setIsAddingLink] = useState(false);
   const [skillLevel, setSkillLevel] = useState(50);
 
   const { personalDataState, dispatchPersonalData } = useContext(CvDataContext);
 
-  const onCancel = () => {
-    setIsAddingSkill(false);
-  };
   const { personal_data, skill_items: state_skill_items } = personalDataState;
-  const { name, phoneNumber, email, github, photo } = edit || preview
-    ? personal_data
-    : personalData;
+  const { name, phoneNumber, email, githubLink, githubLinkName, photo } =
+    edit || preview ? personal_data : personalData;
   const skill_items = edit || preview ? state_skill_items : skillItems;
+
   return (
     <section className={styles.cv__information}>
       <div className={styles.cv__img}>
-        {!edit ? ( <img
+        {!edit ? (
+          <img
             src={photo}
             alt="face"
             className={`${styles.cv__img__photo} ${styles.cv__img__photo_border}`}
           />
         ) : (
-          <ImageDropzoneWithPreview  photoUrl={photo} onEditPhoto={(newPhotoUrl) => {dispatchPersonalData({type:"EDIT_PHOTO", newPhoto:newPhotoUrl})}}/> )
-}
-     
+          <ImageDropzoneWithPreview
+            photoUrl={photo}
+            onEditPhoto={(newPhotoUrl) => {
+              dispatchPersonalData({
+                type: "EDIT_PHOTO",
+                newPhoto: newPhotoUrl,
+              });
+            }}
+          />
+        )}
       </div>
       <div className={styles.cv__information__content}>
         <div className={styles.cv__information__content__name}>
@@ -88,7 +94,7 @@ const InformationSection = ({ edit, preview }) => {
               )}
               {isAddingSkill && (
                 <CustomModal
-                  onCancel={onCancel}
+                  onCancel={() => setIsAddingSkill(false)}
                   withForm
                   onSubmit={(event) =>
                     dispatchPersonalData({
@@ -149,33 +155,58 @@ const InformationSection = ({ edit, preview }) => {
                       {email}
                     </Header>
                   </TextEditOnClick>
-                  <TextEditOnClick
-                    onSend={(github) =>
-                      dispatchPersonalData({
-                        type: "EDIT_GITHUB",
-                        newGithub: github,
-                      })
-                    }
-                    defaultValue={github}
-                  >
+                  {isAddingLink && (
+                    <CustomModal
+                      onCancel={() => setIsAddingLink(false)}
+                      withForm
+                      onSubmit={(event) =>
+                        dispatchPersonalData({
+                          type: "EDIT_GITHUB",
+                          event: event,
+                        })
+                      }
+                    >
+                      <Input
+                        type="text"
+                        name="link"
+                        label="Add full link here"
+                        value={githubLink}
+                      />
+
+                      <Input
+                        type="text"
+                        name="name"
+                        label="Add link name that will be displayed"
+                        value={githubLinkName}
+                      />
+                    </CustomModal>
+                  )}
+                  <div className={styles.edit_github_container}>
+                    <Button type="edit" onClick={() => setIsAddingLink(true)} />
                     <Header p_tag icon={faGithub}>
-                      <a href={github}>{github}</a>
+                      <a href={githubLink}>{githubLinkName}</a>
                     </Header>
-                  </TextEditOnClick>
+                  </div>
                 </>
               ) : (
                 <>
-                  <Header p_tag icon={faPhone}>
-                    {phoneNumber}
-                  </Header>
+                  {phoneNumber && (
+                    <Header p_tag icon={faPhone}>
+                      {phoneNumber}
+                    </Header>
+                  )}
 
-                  <Header p_tag icon={faEnvelope}>
-                    {email}
-                  </Header>
+                  {email && (
+                    <Header p_tag icon={faEnvelope}>
+                      {email}
+                    </Header>
+                  )}
 
-                  <Header p_tag icon={faGithub}>
-                    <a href="https://github.com/tomaszkurcon">github.com</a>
-                  </Header>
+                  {githubLinkName && (
+                    <Header p_tag icon={faGithub}>
+                      <a href={githubLink}>{githubLinkName}</a>
+                    </Header>
+                  )}
                 </>
               )}
             </div>
@@ -186,3 +217,4 @@ const InformationSection = ({ edit, preview }) => {
   );
 };
 export default InformationSection;
+

@@ -36,7 +36,8 @@ export const skillItems = [
     name:"John Hustler",
     phoneNumber:"123454321",
     email:"johnhustler@ww.pl",
-    github:"https://github.com/",
+    githubLink:"https://github.com/",
+    githubLinkName:"github.com/",
     photo:"https://images.pexels.com/photos/2880979/pexels-photo-2880979.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
   }
 

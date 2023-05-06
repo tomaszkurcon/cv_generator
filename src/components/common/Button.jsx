@@ -13,7 +13,7 @@ const Button = ({ type, link, children, onClick, customStyles }) => {
             className={`${styles.button} ${styles.submitButton}`}
             type="submit"
             onClick={onClick}
-            style={customStyle}
+            style={customStyles}
           >
             {children ? children : "Send"}
           </button>

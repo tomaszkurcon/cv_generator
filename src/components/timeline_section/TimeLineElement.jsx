@@ -45,7 +45,7 @@ const TimeLineElement = ({
             </>
           )}
         </div>
-        <p style={{ whiteSpace: "pre-line", marginBottom: "20px" }}>
+        <p style={{ whiteSpace: "pre-line"}}>
           {description}
         </p>
       </div>

@@ -5,16 +5,22 @@ import { faBriefcase, faUserGraduate } from "@fortawesome/free-solid-svg-icons";
 import MainTemplate from "../templates/MainTemplate";
 import Separator from "../common/Separator";
 import Button from "../common/Button";
-import { useContext } from "react";
+import { useContext, useRef, useState } from "react";
 import { CvDataContext } from "../../context/CvDataContext";
 import { educationItems, experienceItems } from "../../mocked_data/data";
+import ReactToPrint from "react-to-print";
+import TextArea from "../common/TextArea";
+import CustomModal from "../Modals/CustomModal";
 
 const CvTemplate = ({ edit, preview }) => {
-  const { timelineElementState } = useContext(CvDataContext);
+  const { timelineElementState, clause, setClause } = useContext(CvDataContext);
+  const cvRef = useRef();
+  const [isAddingClause, setIsAddingClause] = useState(false);
   const experience_items =
     edit || preview ? timelineElementState.experience_items : experienceItems;
   const education_items =
     edit || preview ? timelineElementState.education_items : educationItems;
+  console.log(clause, "clause");
   return (
     <MainTemplate>
       <div className={styles.cv_header}>
@@ -37,18 +43,33 @@ const CvTemplate = ({ edit, preview }) => {
           </>
         )}
         {preview && !edit && (
-          <>
+          <div className={styles.buttons_container}>
             <Button type="link" link={"/generate-cv"}>
               Back to edititing
             </Button>
-          </>
+            <ReactToPrint
+              trigger={() => {
+                return (
+                  <Button
+                    type="submit"
+                    link={"/generate-cv"}
+                    customStyles={{ backgroundColor: "#0A9327" }}
+                  >
+                    Download PDF
+                  </Button>
+                );
+              }}
+              content={() => cvRef.current}
+            />
+          </div>
         )}
       </div>
       <Separator />
 
       <main
         className={styles.cv}
-        style={!edit ? { backgroundColor: "#fbfbf8" } : {}}
+        style={!edit && !preview ? { backgroundColor: "#fbfbf8" } : {}}
+        ref={cvRef}
       >
         <div>
           <InformationSection edit={edit} preview={preview} />
@@ -67,6 +88,36 @@ const CvTemplate = ({ edit, preview }) => {
             icon={faUserGraduate}
             edit={edit}
           />
+          {edit && !clause && (
+            <div className={styles.add_clause}>
+              <h3>Add clause</h3>
+              <Button type="add" onClick={() => setIsAddingClause(true)} />
+            </div>
+          )}
+        </div>
+        <div>
+          <p>{clause}</p>
+          {edit && clause && (
+            <div className={styles.clause_buttons}>
+              <Button
+                type="edit"
+                onClick={() => {
+                  setIsAddingClause(true);
+                }}
+              />
+              <Button type="delete" onClick={() => setClause("")} />
+            </div>
+          )}
+
+          {isAddingClause && (
+            <CustomModal
+              onCancel={() => setIsAddingClause(false)}
+              withForm
+              onSubmit={(event) => setClause(event.target[0].value)}
+            >
+              <TextArea name="clause" label="Clause" defaultValue={clause} />
+            </CustomModal>
+          )}
         </div>
       </main>
     </MainTemplate>

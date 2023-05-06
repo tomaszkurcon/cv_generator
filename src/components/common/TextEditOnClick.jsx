@@ -3,7 +3,7 @@ import Button from "./Button";
 import styles from "./TextEditOnClick.module.css";
 import Input from "./Input";
 
-const TextEditOnClick = ({ children, defaultValue, onSend }) => {
+const TextEditOnClick = ({ children, defaultValue, onSend}) => {
  
   const [isEditing, setIsEditing] = useState(false);
   const handleEnter = (event) => {
