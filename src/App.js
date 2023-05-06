@@ -13,6 +13,7 @@ const router = createBrowserRouter([
     errorElement: <PageNotFound />,
   },
   { path: "/generate-cv", element: <CvTemplate edit={true} /> },
+  { path: "/preview", element: <CvTemplate edit={false} preview={true} /> },
 ]);
 
 const queryClient = new QueryClient();

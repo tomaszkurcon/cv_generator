@@ -9,19 +9,17 @@ import { useContext } from "react";
 import { CvDataContext } from "../../context/CvDataContext";
 import { educationItems, experienceItems } from "../../mocked_data/data";
 
-const CvTemplate = ({ edit }) => {
+const CvTemplate = ({ edit, preview }) => {
   const { timelineElementState } = useContext(CvDataContext);
-  const experience_items = edit
-    ? timelineElementState.experience_items
-    : experienceItems;
-  const education_items = edit
-    ? timelineElementState.education_items
-    : educationItems;
+  const experience_items =
+    edit || preview ? timelineElementState.experience_items : experienceItems;
+  const education_items =
+    edit || preview ? timelineElementState.education_items : educationItems;
   return (
     <MainTemplate>
-      {!edit && (
-        <>
-          <div className={styles.cv_header}>
+      <div className={styles.cv_header}>
+        {!edit && !preview && (
+          <>
             <h1 className={styles.title}>
               The below CV is just a templete to demonstrate example of final CV
               generated on this Page
@@ -29,17 +27,31 @@ const CvTemplate = ({ edit }) => {
             <Button type="link" link={"/generate-cv"}>
               Create your CV
             </Button>
-          </div>
-          <Separator />
-        </>
-      )}
+          </>
+        )}
+        {!preview && edit && (
+          <>
+            <Button type="link" link={"/preview"}>
+              See preview
+            </Button>
+          </>
+        )}
+        {preview && !edit && (
+          <>
+            <Button type="link" link={"/generate-cv"}>
+              Back to edititing
+            </Button>
+          </>
+        )}
+      </div>
+      <Separator />
 
       <main
         className={styles.cv}
         style={!edit ? { backgroundColor: "#fbfbf8" } : {}}
       >
         <div>
-          <InformationSection edit={edit} />
+          <InformationSection edit={edit} preview={preview} />
           <TimelineSection
             name="experience"
             timeline_section_items={experience_items}

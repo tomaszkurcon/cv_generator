@@ -10,34 +10,45 @@ import { CvDataContext } from "../../context/CvDataContext";
 import Button from "../common/Button";
 import Input from "../common/Input";
 import CustomModal from "../Modals/CustomModal";
-import { personalData } from "../../mocked_data/data";
+import { personalData, skillItems } from "../../mocked_data/data";
+import ImageDropzoneWithPreview from "./ImageDropzoneWithPreview";
 
-const InformationSection = ({ edit }) => {
+const InformationSection = ({ edit, preview }) => {
   const [isAddingSkill, setIsAddingSkill] = useState(false);
   const [skillLevel, setSkillLevel] = useState(50);
-  const {
-   personalDataState,
-   dispatchPersonalData
-  } = useContext(CvDataContext);
+
+  const { personalDataState, dispatchPersonalData } = useContext(CvDataContext);
 
   const onCancel = () => {
     setIsAddingSkill(false);
   };
-  const {personal_data, skill_items} = personalDataState;
-  const {name, phoneNumber, email, github} = edit ? personal_data : personalData;
+  const { personal_data, skill_items: state_skill_items } = personalDataState;
+  const { name, phoneNumber, email, github, photo } = edit || preview
+    ? personal_data
+    : personalData;
+  const skill_items = edit || preview ? state_skill_items : skillItems;
   return (
     <section className={styles.cv__information}>
       <div className={styles.cv__img}>
-        <img
-          src="https://images.pexels.com/photos/2880979/pexels-photo-2880979.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-          alt="face"
-          className={styles.cv__img__photo}
-        />
+        {!edit ? ( <img
+            src={photo}
+            alt="face"
+            className={`${styles.cv__img__photo} ${styles.cv__img__photo_border}`}
+          />
+        ) : (
+          <ImageDropzoneWithPreview  photoUrl={photo} onEditPhoto={(newPhotoUrl) => {dispatchPersonalData({type:"EDIT_PHOTO", newPhoto:newPhotoUrl})}}/> )
+}
+     
       </div>
       <div className={styles.cv__information__content}>
         <div className={styles.cv__information__content__name}>
           {edit ? (
-            <TextEditOnClick onSend={(name)=>dispatchPersonalData({type:"EDIT_NAME", newName:name})} defaultValue={name}>
+            <TextEditOnClick
+              onSend={(name) =>
+                dispatchPersonalData({ type: "EDIT_NAME", newName: name })
+              }
+              defaultValue={name}
+            >
               <h1>{name}</h1>
             </TextEditOnClick>
           ) : (
@@ -59,7 +70,10 @@ const InformationSection = ({ edit }) => {
                       <Button
                         type="delete"
                         onClick={() => {
-                          dispatchPersonalData({type:"REMOVE_SKILL_ITEM", index:skill.id})
+                          dispatchPersonalData({
+                            type: "REMOVE_SKILL_ITEM",
+                            index: skill.id,
+                          });
                           setSkillLevel(50);
                         }}
                       />
@@ -76,7 +90,12 @@ const InformationSection = ({ edit }) => {
                 <CustomModal
                   onCancel={onCancel}
                   withForm
-                  onSubmit={(event) => dispatchPersonalData({type:"ADD_SKILL_ITEM", event:event})}
+                  onSubmit={(event) =>
+                    dispatchPersonalData({
+                      type: "ADD_SKILL_ITEM",
+                      event: event,
+                    })
+                  }
                 >
                   <Input type="text" name="skill_name" label="Your skill" />
 
@@ -105,19 +124,40 @@ const InformationSection = ({ edit }) => {
               {edit ? (
                 <>
                   <TextEditOnClick
-                    onSend={(phoneNumber)=>dispatchPersonalData({type:"EDIT_PHONE_NUMBER", newPhoneNumber:phoneNumber})}
+                    onSend={(phoneNumber) =>
+                      dispatchPersonalData({
+                        type: "EDIT_PHONE_NUMBER",
+                        newPhoneNumber: phoneNumber,
+                      })
+                    }
                     defaultValue={phoneNumber}
                   >
                     <Header p_tag icon={faPhone}>
                       {phoneNumber}
                     </Header>
                   </TextEditOnClick>
-                  <TextEditOnClick onSend={(email)=>dispatchPersonalData({type:"EDIT_EMAIL", newEmail:email})} defaultValue={email}>
+                  <TextEditOnClick
+                    onSend={(email) =>
+                      dispatchPersonalData({
+                        type: "EDIT_EMAIL",
+                        newEmail: email,
+                      })
+                    }
+                    defaultValue={email}
+                  >
                     <Header p_tag icon={faEnvelope}>
                       {email}
                     </Header>
                   </TextEditOnClick>
-                  <TextEditOnClick onSend={(github)=>dispatchPersonalData({type:"EDIT_GITHUB", newGithub:github})} defaultValue={github}>
+                  <TextEditOnClick
+                    onSend={(github) =>
+                      dispatchPersonalData({
+                        type: "EDIT_GITHUB",
+                        newGithub: github,
+                      })
+                    }
+                    defaultValue={github}
+                  >
                     <Header p_tag icon={faGithub}>
                       <a href={github}>{github}</a>
                     </Header>

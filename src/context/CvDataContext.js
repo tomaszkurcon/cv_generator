@@ -11,9 +11,10 @@ import {
 } from "./reducers_functions";
 
 export const CvDataContext = createContext({
-  experienceItems: [],
-  educationItems: [],
-  skillItems: [],
+  timelineElementState: {},
+  personalDataState: {},
+  dispatchTimelineElement: () => {},
+  dispatchPersonalData: () => {}
 });
 
 export const CvDataContextProvider = ({ children }) => {

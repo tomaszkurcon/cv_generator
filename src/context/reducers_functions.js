@@ -122,6 +122,14 @@ export const personalDataReducer = (state, action) => {
         personal_data: updatedPersonalData,
       };
     }
+    case "EDIT_PHOTO": {
+      const updatedPersonalData = { ...state.personal_data };
+      updatedPersonalData.photo = action.newPhoto;
+      return {
+        ...state,
+        personal_data: updatedPersonalData,
+      };
+    }
     case "REMOVE_SKILL_ITEM": {
       const updatedSkillList = state.skill_items.filter(
         (skill) => skill.id !== action.index
@@ -150,6 +158,7 @@ export const personalDataReducer = (state, action) => {
         skill_items: updatedSkillList,
       };
     }
+   
     default:
       return state;
   }
