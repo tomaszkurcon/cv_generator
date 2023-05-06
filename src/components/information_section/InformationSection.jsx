@@ -10,27 +10,21 @@ import { CvDataContext } from "../../context/CvDataContext";
 import Button from "../common/Button";
 import Input from "../common/Input";
 import CustomModal from "../Modals/CustomModal";
+import { personalData } from "../../mocked_data/data";
 
 const InformationSection = ({ edit }) => {
   const [isAddingSkill, setIsAddingSkill] = useState(false);
   const [skillLevel, setSkillLevel] = useState(50);
   const {
-    name,
-    setName,
-    phoneNumber,
-    setPhoneNumber,
-    email,
-    setEmail,
-    skill_items,
-    removeSkillHandler,
-    github,
-    setGithub,
-    addSkillhandler,
+   personalDataState,
+   dispatchPersonalData
   } = useContext(CvDataContext);
 
   const onCancel = () => {
     setIsAddingSkill(false);
   };
+  const {personal_data, skill_items} = personalDataState;
+  const {name, phoneNumber, email, github} = edit ? personal_data : personalData;
   return (
     <section className={styles.cv__information}>
       <div className={styles.cv__img}>
@@ -43,7 +37,7 @@ const InformationSection = ({ edit }) => {
       <div className={styles.cv__information__content}>
         <div className={styles.cv__information__content__name}>
           {edit ? (
-            <TextEditOnClick onSend={setName} defaultValue={name}>
+            <TextEditOnClick onSend={(name)=>dispatchPersonalData({type:"EDIT_NAME", newName:name})} defaultValue={name}>
               <h1>{name}</h1>
             </TextEditOnClick>
           ) : (
@@ -65,7 +59,7 @@ const InformationSection = ({ edit }) => {
                       <Button
                         type="delete"
                         onClick={() => {
-                          removeSkillHandler(skill.id);
+                          dispatchPersonalData({type:"REMOVE_SKILL_ITEM", index:skill.id})
                           setSkillLevel(50);
                         }}
                       />
@@ -82,7 +76,7 @@ const InformationSection = ({ edit }) => {
                 <CustomModal
                   onCancel={onCancel}
                   withForm
-                  onSubmit={addSkillhandler}
+                  onSubmit={(event) => dispatchPersonalData({type:"ADD_SKILL_ITEM", event:event})}
                 >
                   <Input type="text" name="skill_name" label="Your skill" />
 
@@ -111,19 +105,19 @@ const InformationSection = ({ edit }) => {
               {edit ? (
                 <>
                   <TextEditOnClick
-                    onSend={setPhoneNumber}
+                    onSend={(phoneNumber)=>dispatchPersonalData({type:"EDIT_PHONE_NUMBER", newPhoneNumber:phoneNumber})}
                     defaultValue={phoneNumber}
                   >
                     <Header p_tag icon={faPhone}>
                       {phoneNumber}
                     </Header>
                   </TextEditOnClick>
-                  <TextEditOnClick onSend={setEmail} defaultValue={email}>
+                  <TextEditOnClick onSend={(email)=>dispatchPersonalData({type:"EDIT_EMAIL", newEmail:email})} defaultValue={email}>
                     <Header p_tag icon={faEnvelope}>
                       {email}
                     </Header>
                   </TextEditOnClick>
-                  <TextEditOnClick onSend={setGithub} defaultValue={github}>
+                  <TextEditOnClick onSend={(github)=>dispatchPersonalData({type:"EDIT_GITHUB", newGithub:github})} defaultValue={github}>
                     <Header p_tag icon={faGithub}>
                       <a href={github}>{github}</a>
                     </Header>

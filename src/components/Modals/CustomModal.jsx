@@ -7,6 +7,7 @@ const Backdrop = (props) => {
 };
 const ModalContent = ({ children, withForm, onSubmit, onCancel }) => {
   const onSubmitHandler = (event) => {
+    event.preventDefault();
     onSubmit(event);
     onCancel();
  

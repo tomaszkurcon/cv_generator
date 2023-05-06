@@ -31,3 +31,11 @@ export const skillItems = [
     { id: 4, label: "TypeScript", level: "30%" },
     { id: 5, label: "Git", level: "20%" },
   ]
+
+  export const personalData = {
+    name:"John Hustler",
+    phoneNumber:"123454321",
+    email:"johnhustler@ww.pl",
+    github:"https://github.com/"
+  }
+
