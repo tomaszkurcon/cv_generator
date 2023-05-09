@@ -57,7 +57,7 @@ const TimelineSection = ({
             <Button
               type="add"
               onClick={() => setIsOpen(true)}
-              customStyles={{ marginLeft: "220px" }}
+              customStyles={{ marginLeft: "220px", marginTop:"30px" }}
             />
             {isOpen && (
               <CustomModal

@@ -12,14 +12,12 @@ import Input from "../common/Input";
 import CustomModal from "../Modals/CustomModal";
 import { personalData, skillItems } from "../../mocked_data/data";
 import ImageDropzoneWithPreview from "./ImageDropzoneWithPreview";
+import InputRange from "../common/InputRange";
 
 const InformationSection = ({ edit, preview }) => {
   const [isAddingSkill, setIsAddingSkill] = useState(false);
   const [isAddingLink, setIsAddingLink] = useState(false);
-  const [skillLevel, setSkillLevel] = useState(50);
-
   const { personalDataState, dispatchPersonalData } = useContext(CvDataContext);
-
   const { personal_data, skill_items: state_skill_items } = personalDataState;
   const { name, phoneNumber, email, githubLink, githubLinkName, photo } =
     edit || preview ? personal_data : personalData;
@@ -80,7 +78,6 @@ const InformationSection = ({ edit, preview }) => {
                             type: "REMOVE_SKILL_ITEM",
                             index: skill.id,
                           });
-                          setSkillLevel(50);
                         }}
                       />
                     )}
@@ -105,14 +102,7 @@ const InformationSection = ({ edit, preview }) => {
                 >
                   <Input type="text" name="skill_name" label="Your skill" />
 
-                  <input
-                    type="range"
-                    name="skill_level"
-                    onChange={(event) => {
-                      setSkillLevel(event.currentTarget.value);
-                    }}
-                  />
-                  <p>{`${skillLevel}%`}</p>
+                  <InputRange />
                 </CustomModal>
               )}
             </div>

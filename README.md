@@ -1,5 +1,6 @@
 # Cv generator
 The below image is sample of CV created with this app.
+App is not responsive though so it is not recommended to use it on mobile devices.
 
 
 
