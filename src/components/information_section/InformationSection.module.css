@@ -15,7 +15,7 @@
   height: 180px;
   border-radius: 50%;
   overflow: hidden;
-  object-fit:scale-down;
+  object-fit: cover;
   position: absolute;
   left: 50%;
   transform: translate(-50%);

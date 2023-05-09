@@ -36,16 +36,19 @@ const CvTemplate = ({ edit, preview }) => {
           </>
         )}
         {!preview && edit && (
-          <>
+          <div className={styles.buttons_container}>
             <Button type="link" link={"/preview"}>
               See preview
             </Button>
-          </>
+            <Button type="link" link={"/"}>
+              Main page
+            </Button>
+          </div>
         )}
         {preview && !edit && (
           <div className={styles.buttons_container}>
             <Button type="link" link={"/generate-cv"}>
-              Back to edititing
+              Back to editing
             </Button>
             <ReactToPrint
               trigger={() => {
