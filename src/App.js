@@ -14,7 +14,7 @@ const router = createBrowserRouter([
   },
   { path: "/generate-cv", element: <CvTemplate edit={true} /> },
   { path: "/preview", element: <CvTemplate edit={false} preview={true} /> },
-]);
+], {basename:"/cv_generator"});
 
 const queryClient = new QueryClient();
 
@@ -22,7 +22,7 @@ function App() {
   return (
     <CvDataContextProvider>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
+        <RouterProvider router={router}/>
       </QueryClientProvider>
     </CvDataContextProvider>
   );
